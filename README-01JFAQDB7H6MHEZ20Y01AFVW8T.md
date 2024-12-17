@@ -1,18 +1,10 @@
-
 ---
-
-## **File Manipulation CLI Tool**
-
-## **Overview**
-
-The **File Manipulation CLI Tool** is a lightweight, versatile command-line utility designed to perform essential file operations. It supports interactive user input for convenience and command-line automation for use in scripts, pipelines, and workflows.
-
-### **Supported Operations**
-1. **Create**: Create a file with optional text content.  
-2. **Copy**: Copy a file to a new location.  
-3. **Combine**: Merge the contents of two files into a third file.  
-4. **Delete**: Delete a specified file.  
-
+runme:
+  document:
+    relativePath: README.md
+  session:
+    id: 01JFAQDB7H6MHEZ20Y01AFVW8T
+    updated: 2024-12-17 11:46:46-06:00
 ---
 
 ## **Features**
