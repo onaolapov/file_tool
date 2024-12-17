@@ -1,11 +1,7 @@
-Here’s the updated **`README.md`** with all references to **Git worktree** removed while keeping the content clean and organized:
 
 ---
 
-## **README.md**
-
-```markdown
-# File Manipulation CLI Tool
+## **File Manipulation CLI Tool**
 
 ## **Overview**
 
@@ -50,142 +46,22 @@ Below is the structure of the project repository:
 ```
 
 **Files and Directories**:
-- **`file_tool.sh`**: The main Bash script that provides all operations.
-- **`tests/`**: Contains automated tests and configurations.
-- **`Makefile`**: Provides commands for building, testing, and cleaning the project.
-- **`install.sh`**: Installs the tool to `/usr/local/bin` for system-wide use.
+
+- **`file_tool.sh`**: The main Bash script that provides all operations.  
+- **`tests/`**: Contains automated tests and configurations.  
+- **`Makefile`**: Provides commands for building, testing, and cleaning the project.  
+- **`install.sh`**: Installs the tool to `/usr/local/bin` for system-wide use.  
 - **`README.md`**: Documentation for usage and contribution.
 
 ---
 
-## **CI/CD Workflow**
-
-The project includes a GitHub Actions workflow that automates the following:
-
-1. **Testing**:
-   - Runs unit and integration tests using `make test`.
-2. **Build**:
-   - Packages the tool into a `file_tool.tar.gz` tarball.
-3. **Vulnerability Scanning**:
-   - Scans the repository and artifacts for security vulnerabilities using `Trivy` and lints shell scripts with `ShellCheck`.
-4. **Version Tagging**:
-   - Automatically increments the version (e.g., `v1.0.0` → `v1.0.1`) and tags the repository.
-5. **Artifact Upload**:
-   - Uploads the built tarball as an artifact for download.
-
-### **Triggers**:
-- On push or pull requests to the `main` branch.  
-- Manual trigger via GitHub Actions UI.
-
----
-
-## **Installation**
-
-### **Steps to Install**
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd file_tool
-   ```
-
-2. Build the tool:
-   ```bash
-   make build
-   ```
-
-3. Install the tool system-wide:
-   ```bash
-   sudo make install
-   ```
-
-The tool will now be available as `file_tool` in `/usr/local/bin`.
-
----
-
-## **Usage**
-
-### **1. Interactive Mode**
-
-Run the tool without any arguments:
-```bash
-file_tool
-```
-Follow the on-screen prompts to perform file operations.
-
----
-
-### **2. Command-Line Mode**
-
-| **Operation**             | **Command Syntax**                          |
-|---------------------------|---------------------------------------------|
-| Create a file             | `file_tool create <filename> [text]`       |
-| Copy a file               | `file_tool copy <source> <destination>`    |
-| Combine two files         | `file_tool combine <file1> <file2> <output>` |
-| Delete a file             | `file_tool delete <filename>`              |
-
----
-
-### **Examples**
-
-- **Create a file**:
-   ```bash
-   file_tool create example.txt "Hello World"
-   ```
-
-- **Copy a file**:
-   ```bash
-   file_tool copy example.txt backup.txt
-   ```
-
-- **Combine two files**:
-   ```bash
-   file_tool combine file1.txt file2.txt combined.txt
-   ```
-
-- **Delete a file**:
-   ```bash
-   file_tool delete example.txt
-   ```
-
----
-
-## **Testing**
-
-### **Run Automated Tests**
-To execute all tests:
-```bash
-make test
-```
-
-### **Testing Includes**:
-- **Unit Tests**: Verifies individual file operations.  
-- **Integration Tests**: Simulates combined workflows involving multiple operations.  
-- **Vulnerability Scanning**: Ensures scripts and artifacts are secure.
-
----
-
-## **Build Instructions**
-
-To package the tool into a tarball:
-```bash
-make build
-```
-
----
-
-## **Cleanup**
-
-To clean up generated files and test artifacts:
-```bash
-make clean
-```
 
 ---
 
 ## **CI/CD Pipeline Workflow**
 
 The CI/CD pipeline automates:
+
 1. Testing (unit, integration, and security).
 2. Building the tool.
 3. Running vulnerability scans with **Trivy**.
@@ -203,9 +79,9 @@ This project is licensed under the **MIT License**.
 
 ## **Credits**
 
-- **Author**: [Your Name]  
-- **Version**: 1.0.0  
-- **Tools Used**: Bash, GitHub Actions, Trivy, ShellCheck  
+- **Author**: [Your Name]
+- **Version**: 1.0.0
+- **Tools Used**: Bash, GitHub Actions, Trivy, ShellCheck
 
 ---
 
@@ -214,18 +90,25 @@ This project is licensed under the **MIT License**.
 Contributions are welcome! To contribute:
 
 1. Fork the repository.
+
 2. Create a new feature branch:
-   ```bash
-   git checkout -b feature-name
-   ```
+
+```bash {"id":"01JFASZ8MXVEBJBGE3A3TSSW29"}
+git checkout -b feature-name
+```
+
 3. Commit your changes:
-   ```bash
-   git commit -m "Add feature-name"
-   ```
+
+```bash {"id":"01JFASZ8N0C15HBDR3EXQBDDVB"}
+git commit -m "Add feature-name"
+```
+
 4. Push to your branch:
-   ```bash
-   git push origin feature-name
-   ```
+
+```bash {"id":"01JFASZ8N0C15HBDR3EXWTVNQ5"}
+git push origin feature-name
+```
+
 5. Open a pull request.
 
 ---
