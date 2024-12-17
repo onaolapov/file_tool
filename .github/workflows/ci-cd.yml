@@ -33,7 +33,12 @@ jobs:
         run: |
           make build
 
-      # Step 4: Auto-Increment Version
+      # Step 4: Run Vulnerability Scan
+      - name: vulerability scan
+        run: |
+          make scan
+
+      # Step 5: Auto-Increment Version
       - name: Auto-Increment Version
         id: version
         run: |
@@ -45,7 +50,7 @@ jobs:
           echo "new_tag=$new_tag" >> $GITHUB_ENV
           echo "New Version: $new_tag"
 
-      # Step 5: Push New Version Tag
+      # Step 6: Push New Version Tag
       - name: Push New Version Tag
         if: github.ref == 'refs/heads/main'
         uses: actions/github-script@v6
@@ -60,7 +65,7 @@ jobs:
               sha: context.sha
             });
 
-      # Step 6: Upload Build Artifact
+      # Step 7: Upload Build Artifact
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
