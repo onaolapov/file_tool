@@ -1,13 +1,3 @@
-
----
-
-# **File Manipulation CLI Tool**
-
-![Build](https://github.com/onaolapov/file_tool/actions/workflows/ci-cd.yml/badge.svg)
-![ShellCheck](https://img.shields.io/badge/Lint-ShellCheck-blue)
-![License](https://img.shields.io/github/license/onaolapov/file_tool)
-![Version](https://img.shields.io/badge/version-1.0.0-green)
-
 ---
 
 ## **Overview**
@@ -19,6 +9,7 @@ The **File Manipulation CLI Tool** is a lightweight, versatile command-line util
 ## **Features**
 
 - **File Operations**:
+
    - **Create**: Create a file with optional text content.
    - **Copy**: Copy a file to a new location.
    - **Combine**: Merge the contents of two files into a third file.
@@ -28,20 +19,22 @@ The **File Manipulation CLI Tool** is a lightweight, versatile command-line util
 - **Command-Line Automation**: Execute commands directly with arguments.
 - **Automated Testing**: Includes unit and integration tests for reliability.
 - **CI/CD Pipeline**: Automates testing, building, and version tagging with GitHub Actions.
-- **Vulnerability Scanning**: Security checks using ShellCheck and Trivy.
+- **Vulnerability Scanning**: Security checks using `make scan` (ShellCheck).
 - **Portable Installation**: Simple setup with a `Makefile` and installation script.
+- **Pre-Commit Hook**: Ensures shell scripts are free of trailing whitespace and properly formatted.
 
 ---
 
 ## **Table of Contents**
 
-1. [Installation](#installation)
-2. [Usage](#usage)
-3. [Project Structure](#project-structure)
-4. [Testing](#testing)
-5. [CI/CD Pipeline](#cicd-pipeline)
-6. [Contributing](#contributing)
-7. [License](#license)
+1. [Installation](#installation)  
+2. [Usage](#usage)  
+3. [Project Structure](#project-structure)  
+4. [Testing](#testing)  
+5. [CI/CD Pipeline](#cicd-pipeline)  
+6. [Pre-Commit Hook](#pre-commit-hook)  
+7. [Contributing](#contributing)  
+8. [License](#license)  
 
 ---
 
@@ -50,10 +43,22 @@ The **File Manipulation CLI Tool** is a lightweight, versatile command-line util
 Follow these steps to install the tool:
 
 ### **Requirements**
-- Linux-based system (Debian/Ubuntu recommended)
+
+- Ubuntu (Debian-based system)
 - Bash version 4.0 or later
+- ShellCheck (for formatting and linting)
+
+Install ShellCheck if not already installed:
+
+```bash
+sudo apt-get update
+sudo apt-get install shellcheck
+```
+
+---
 
 ### **Steps**
+
 1. Clone the repository:
    ```bash
    git clone https://github.com/onaolapov/file_tool.git
@@ -87,14 +92,13 @@ Run the tool without arguments:
 ```bash
 file_tool
 ```
-
 Follow the on-screen prompts to perform file operations.
 
 ---
 
 ### **2. Command-Line Mode**
 
-| **Operation**             | **Command Syntax**                          |
+| __Operation__             | __Command Syntax__                          |
 |---------------------------|---------------------------------------------|
 | Create a file             | `file_tool create <filename> [text]`       |
 | Copy a file               | `file_tool copy <source> <destination>`    |
@@ -133,20 +137,21 @@ The project is organized as follows:
 
 ```plaintext
 file_tool/
-├── src/                    # Source code directory
-│   └── file_tool.sh        # Main CLI script
-├── tests/                  # Test scripts
-│   ├── unit_tests.sh       # Unit tests
+├── pre-commit.sh          # Pre-commit hook script
+├── src/                   # Source code directory
+│   └── file_tool.sh       # Main CLI script
+├── tests/                 # Test scripts
+│   ├── unit_tests.sh      # Unit tests
 │   ├── integration_tests.sh # Integration tests
-│   └── test_config.sh      # Test configuration variables
-├── .github/                # CI/CD workflows
+│   └── test_config.sh     # Test configuration variables
+├── .github/               # CI/CD workflows
 │   └── workflows/
-│       └── ci-cd.yml       # GitHub Actions CI/CD pipeline
-├── Makefile                # Build, test, and clean automation
-├── install.sh              # Installation script
-├── LICENSE                 # License file
-├── CHANGELOG.md            # Change history
-└── README.md               # Project documentation
+│       └── ci-cd.yml      # GitHub Actions CI/CD pipeline
+├── Makefile               # Build, test, and clean automation
+├── install.sh             # Installation script
+├── LICENSE                # License file
+├── CHANGELOG.md           # Change history
+└── README.md              # Project documentation
 ```
 
 ---
@@ -156,15 +161,21 @@ file_tool/
 Automated tests include unit and integration tests to ensure reliability.
 
 ### **Run All Tests**
+
 To execute tests:
 ```bash
 make test
 ```
 
-### **Test Types**:
-1. **Unit Tests**: Verify individual file operations.
-2. **Integration Tests**: Simulate combined workflows.
-3. **Vulnerability Scan**: Checks for security issues using ShellCheck and Trivy.
+### **Run Vulnerability Scan**
+
+The `make scan` target ensures your shell scripts are free of syntax errors and vulnerabilities using **ShellCheck**.
+
+```bash
+make scan
+```
+
+**Output**: If there are issues, they will be reported as warnings, but the pipeline will proceed.
 
 ---
 
@@ -172,13 +183,55 @@ make test
 
 The project includes a GitHub Actions pipeline that automates:
 
-1. **Testing**: Runs unit, integration, and security tests.
-2. **Building**: Packages the tool into `file_tool.tar.gz`.
-3. **Vulnerability Scanning**: Scans for security issues using:
-   - **ShellCheck** for shell script linting.
-   - **Trivy** for vulnerability detection.
-4. **Version Tagging**: Automatically increments the version and tags the repository.
+1. **Testing**: Runs unit and integration tests.  
+2. **Building**: Packages the tool into `file_tool.tar.gz`.  
+3. **Vulnerability Scanning**: Runs `make scan` to check for shell script issues using ShellCheck.  
+4. **Version Tagging**: Automatically increments the version and tags the repository.  
 5. **Artifact Upload**: Uploads the built tarball for download.
+
+---
+
+## **Pre-Commit Hook**
+
+To ensure clean and well-formatted shell scripts, a **pre-commit hook** is included.
+
+### **What It Does**
+- Removes trailing whitespaces.
+- Formats shell scripts using ShellCheck and `shfmt`.
+
+### **Setup Instructions**
+
+1. **Ensure `ShellCheck` and `shfmt` are installed**:
+   ```bash
+   sudo apt-get install shellcheck
+   sudo apt-get install shfmt
+   ```
+
+2. **Set up the pre-commit hook**:
+   Link the `pre-commit.sh` file in the root to `.git/hooks/pre-commit`:
+   ```bash
+   ln -sf ../../pre-commit.sh .git/hooks/pre-commit
+   ```
+
+3. **Make the script executable**:
+   ```bash
+   chmod +x pre-commit.sh
+   ```
+
+4. **Verify the hook**:
+   - Modify a shell script (e.g., add trailing spaces).
+   - Stage and commit:
+     ```bash
+     git add file_tool.sh
+     git commit -m "Test pre-commit hook"
+     ```
+
+5. **Output Example**:
+   ```plaintext
+   Running pre-commit hook: Removing trailing whitespaces and formatting...
+   Processing file_tool.sh...
+   Pre-commit checks passed. All files are clean and formatted!
+   ```
 
 ---
 
@@ -218,7 +271,7 @@ This project is licensed under the [MIT License](LICENSE).
 ### **[1.0.0]** - 2024-12-17
 - Initial release of the File Manipulation CLI Tool.
 - Implemented create, copy, combine, and delete operations.
-- Added automated tests and GitHub Actions CI/CD pipeline.
+- Added automated tests, pre-commit hooks, and GitHub Actions CI/CD pipeline.
 
 ---
 
@@ -233,7 +286,6 @@ If you encounter any issues, please open an issue on the repository:
 
 Special thanks to the open-source community for tools like:
 - **ShellCheck**: Shell script linting.
-- **Trivy**: Vulnerability scanner.
 - **GitHub Actions**: CI/CD automation.
 
 ---
