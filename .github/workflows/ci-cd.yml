@@ -1,3 +1,77 @@
+# name: CI/CD Pipeline
+
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
+#   workflow_dispatch:
+
+# jobs:
+#   build-test-tag:
+#     name: Build, Test, Scan, and Tag
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       # Step 1: Checkout Repository
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
+
+#       # Step 3: Run Tests
+#       - name: Run Tests
+#         run: |
+#           make test
+
+#       # # Step 4: Vulnerability Scan with Trivy
+#       # - name: Run Trivy Vulnerability Scan
+#       #   uses: aquasecurity/trivy-action@master
+#       #   with:
+#       #     scan-type: "fs"
+#       #     scan-ref: "."
+#       #     severity: "CRITICAL,HIGH"
+
+#       # Step 5: Build the Tool
+#       - name: Build the Tool
+#         run: |
+#           make build
+
+#       # Step 6: Auto-Increment Version
+#       - name: Auto-Increment Version
+#         id: version
+#         run: |
+#           git fetch --tags
+#           latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
+#           IFS='.' read -r -a parts <<< "${latest_tag:1}"
+#           parts[2]=$((parts[2] + 1))
+#           new_tag="v${parts[0]}.${parts[1]}.${parts[2]}"
+#           echo "new_tag=$new_tag" >> $GITHUB_ENV
+#           echo "New Version: $new_tag"
+
+#       # Step 7: Push New Tag
+#       - name: Push New Version Tag
+#         if: github.ref == 'refs/heads/main'
+#         uses: actions/github-script@v6
+#         with:
+#           script: |
+#             const tag = process.env.new_tag;
+#             const ref = `refs/tags/${tag}`;
+#             await github.rest.git.createRef({
+#               owner: context.repo.owner,
+#               repo: context.repo.repo,
+#               ref: ref,
+#               sha: context.sha
+#             });
+
+#       # Step 8: Upload Build Artifact
+#       - name: Upload Build Artifact
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: file_tool_tarball
+#           path: file_tool.tar.gz
+
+
 name: CI/CD Pipeline
 
 on:
@@ -9,6 +83,10 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   build-test-tag:
     name: Build, Test, Scan, and Tag
@@ -19,25 +97,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 3: Run Tests
+      # Step 2: Run Tests
       - name: Run Tests
         run: |
           make test
 
-      # # Step 4: Vulnerability Scan with Trivy
-      # - name: Run Trivy Vulnerability Scan
-      #   uses: aquasecurity/trivy-action@master
-      #   with:
-      #     scan-type: "fs"
-      #     scan-ref: "."
-      #     severity: "CRITICAL,HIGH"
-
-      # Step 5: Build the Tool
+      # Step 3: Build the Tool
       - name: Build the Tool
         run: |
           make build
 
-      # Step 6: Auto-Increment Version
+      # Step 4: Auto-Increment Version
       - name: Auto-Increment Version
         id: version
         run: |
@@ -49,7 +119,7 @@ jobs:
           echo "new_tag=$new_tag" >> $GITHUB_ENV
           echo "New Version: $new_tag"
 
-      # Step 7: Push New Tag
+      # Step 5: Push New Version Tag
       - name: Push New Version Tag
         if: github.ref == 'refs/heads/main'
         uses: actions/github-script@v6
@@ -64,7 +134,7 @@ jobs:
               sha: context.sha
             });
 
-      # Step 8: Upload Build Artifact
+      # Step 6: Upload Build Artifact
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
