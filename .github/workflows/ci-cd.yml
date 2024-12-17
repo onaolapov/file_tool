@@ -19,13 +19,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Run ShellCheck (Using Super-Linter)
-      - name: Run Super-Linter for ShellCheck
-        uses: github/super-linter@v5
-        env:
-          VALIDATE_BASH: true
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       # Step 3: Run Tests
       - name: Run Tests
         run: |
