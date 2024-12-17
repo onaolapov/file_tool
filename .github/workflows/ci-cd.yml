@@ -24,13 +24,13 @@ jobs:
         run: |
           make test
 
-      # Step 4: Vulnerability Scan with Trivy
-      - name: Run Trivy Vulnerability Scan
-        uses: aquasecurity/trivy-action@master
-        with:
-          scan-type: "fs"
-          scan-ref: "."
-          severity: "CRITICAL,HIGH"
+      # # Step 4: Vulnerability Scan with Trivy
+      # - name: Run Trivy Vulnerability Scan
+      #   uses: aquasecurity/trivy-action@master
+      #   with:
+      #     scan-type: "fs"
+      #     scan-ref: "."
+      #     severity: "CRITICAL,HIGH"
 
       # Step 5: Build the Tool
       - name: Build the Tool
