@@ -12,9 +12,32 @@ usage() {
 create_file() {
     local file="$1"
     local text="$2"
-    echo "$text" > "$file"
-    echo "File '$file' created with content: '$text'."
+
+    if [[ -n "$text" ]]; then
+        # Automated mode: Use provided content
+        echo "$text" > "$file"
+    else
+        # Interactive mode: Prompt for content
+        echo "Enter the content for '$file'."
+        echo "Instructions:"
+        echo " - Press Enter to start a new line."
+        echo " - Press Enter on a blank line to indicate the end of input."
+
+        text=""
+        while IFS= read -r line; do
+            if [[ -z "$line" ]]; then
+                break
+            fi
+            text+="$line"$'\n'
+        done
+
+        # Write the content to the file, trimming the final newline
+        echo -n "$text" > "$file"
+    fi
+
+    echo "File '$file' created with the provided content."
 }
+
 
 copy_file() {
     local src="$1"
