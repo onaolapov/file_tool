@@ -23,7 +23,6 @@ The **File Manipulation CLI Tool** is a lightweight, versatile command-line util
 - **Vulnerability Scanning**: Integrated security checks during CI/CD pipelines.
 - **CI/CD Pipeline**: Automates testing, building, tagging versions, and artifact uploads.
 - **Portable Installation**: Build and install the tool system-wide.
-- >
 
 ---
 
