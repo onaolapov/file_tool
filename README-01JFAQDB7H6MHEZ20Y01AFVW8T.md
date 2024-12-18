@@ -69,7 +69,7 @@ sudo apt-get install shellcheck
 1. Clone the repository:
 
 ```bash {"id":"01JFD4C5JXYVQ96KKHDQR24M6W"}
-git clone https://github.com/onaolapov/file_tool.git
+git clone ht**************************************it
 cd file_tool
 ```
 
@@ -113,7 +113,7 @@ file_tool
 |----------------------|----------------------------------------|-----------------------------------------|
 | 📄 __Create a file__ | `file_tool create <file> [content]`    | `file_tool create example.txt "Hello!"` |
 | 🔄 __Copy a file__   | `file_tool copy <src> <dest>`          | `file_tool copy example.txt backup.txt` |
-| 🔗 __Combine files__ | `file_tool combine <f1> <f2> <output>` | `file_tool combine f1.txt f2.txt output.txt` |
+| 🔗 __Combine files__ | `file_tool combine <f1> <f2> <output>` | `file_tool combine f1**xt f2**xt output.txt` |
 | 🗑️ __Delete a file__ | `file_tool delete <file>`              | `file_tool delete example.txt`          |
 
 ---
@@ -210,7 +210,7 @@ Contributions are welcome! Follow these steps:
 2. Clone your fork locally:
 
 ```bash {"id":"01JFD4C5JXYVQ96KKHEG1J2DEG"}
-git clone https://github.com/<your-username>/file_tool.git
+git clone ht**************om/<your-username>/file_tool.git
 cd file_tool
 ```
 
@@ -238,7 +238,7 @@ git push origin feature-name
 ## **Support** 💬
 
 For issues, questions, or suggestions, please open an issue here:  
-[__https://github.com/onaolapov/file_tool/issues__](https://github.com/onaolapov/file_tool/issues)
+[__https://github.com/onaolapov/file_tool/issues__](ht*****************************************es)
 
 ---
 
